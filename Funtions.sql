@@ -75,99 +75,99 @@ Example: SELECT Name, RIGHT(Name, 2) FROM ItemName;
 
 --Date and Time Functions:
 --GETDATE: Returns the current date and time.
---Example: SELECT GETDATE();
+Example: SELECT GETDATE();
 --DATEPART: Returns a specified part of a date.
---Example: SELECT DATEPART(YEAR, OrderDate) FROM Orders;
+Example: SELECT DATEPART(YEAR, OrderDate) FROM Orders;
 --DATEADD: Adds or subtracts a specified time interval from a date.
---Example: SELECT DATEADD(MONTH, 3, OrderDate) FROM Orders;
+Example: SELECT DATEADD(MONTH, 3, OrderDate) FROM Orders;
 --DATEDIFF: Returns the difference between two dates.
---Example: SELECT DATEDIFF(DAY, OrderDate, ShippedDate) FROM Orders;
+Example: SELECT DATEDIFF(DAY, OrderDate, ShippedDate) FROM Orders;
 --Mathematical Functions:
 
 --ROUND: Rounds a number to a specified precision.
---Example: SELECT Price, ROUND(Price, 3) FROM ItemName;
+Example: SELECT Price, ROUND(Price, 3) FROM ItemName;
 --ABS: Returns the absolute value of a number.
---Example: SELECT Price, ABS(Price) FROM ItemName;
+Example: SELECT Price, ABS(Price) FROM ItemName;
 --POWER: Returns the value of a number raised to a specified power.
---Example: SELECT Name, Price, Warranty, POWER(2, 3) as Specific FROM ItemName;
+Example: SELECT Name, Price, Warranty, POWER(2, 3) as Specific FROM ItemName;
 --SQRT: Returns the square root of a number.
---Example: SELECT SQRT(16) FROM ItemName;
+Example: SELECT SQRT(16) FROM ItemName;
 --RAND: Returns a random number between 0 and 1.
---Example: SELECT RAND() FROM ItemName;
+Example: SELECT RAND() FROM ItemName;
 
 --------------------------------Group by / Order By----------------------------------
---SELECT ItemId, SUM(Price) AS TotalPriceAmount
---FROM ItemName
---GROUP BY ItemId
---ORDER BY TotalPriceAmount DESC;
+SELECT ItemId, SUM(Price) AS TotalPriceAmount
+FROM ItemName
+GROUP BY ItemId
+ORDER BY TotalPriceAmount DESC;
 
---SELECT ItemId, Sum(Price) as Totalprice ,Count(ItemId) AS TotalCountAmount
---FROM ItemName 
---GROUP BY ItemId
---ORDER BY TotalCountAmount DESC;
+SELECT ItemId, Sum(Price) as Totalprice ,Count(ItemId) AS TotalCountAmount
+FROM ItemName 
+GROUP BY ItemId
+ORDER BY TotalCountAmount DESC;
 
---SELECT ItemId, Avg(Price) as Totalprice ,Count(ItemId) AS TotalCountAmount
---FROM ItemName 
---GROUP BY ItemId
---ORDER BY TotalCountAmount DESC;
+SELECT ItemId, Avg(Price) as Totalprice ,Count(ItemId) AS TotalCountAmount
+FROM ItemName 
+GROUP BY ItemId
+ORDER BY TotalCountAmount DESC;
 
---Select * from Item 
---Order by ItemId
+Select * from Item 
+Order by ItemId
 
 ------------------------------clause like where-----------------------------------
---Select Name, Price , Warranty from [ItemName] where ItemId = '4' and Price > '56090'
---Select Count(ItemId) from [ItemName] where ItemId = '4'
+Select Name, Price , Warranty from [ItemName] where ItemId = '4' and Price > '56090'
+Select Count(ItemId) from [ItemName] where ItemId = '4'
 
 ------------------------------clause like Having-----------------------------------
---SELECT ItemId,SUM(Price) AS TotalOrderAmount
---FROM ItemName
---GROUP BY ItemId
---HAVING SUM(Price) > 1200
---ORDER BY TotalOrderAmount DESC;
+SELECT ItemId,SUM(Price) AS TotalOrderAmount
+FROM ItemName
+GROUP BY ItemId
+HAVING SUM(Price) > 1200
+ORDER BY TotalOrderAmount DESC;
 
---SELECT ItemId,Count(ItemId) AS TotalOrderAmount
---FROM ItemName
---GROUP BY ItemId
---HAVING Count(ItemId) > 2
---ORDER BY TotalOrderAmount DESC;
----------------------------------Trigger---------------------------------
---CREATE TRIGGER UpdateDatabase
---ON Marks
---AFTER INSERT, UPDATE , DELETE
---AS
---BEGIN
---    UPDATE Marks
---    SET TotalMarks = Maths + English + Science
---    WHERE RollNo IN (SELECT RollNo FROM inserted);
---	IF EXISTS(SELECT * FROM deleted)
---		BEGIN
---			UPDATE Marks
---			SET TotalMarks = Maths + English + Science
---			WHERE RollNo IN (SELECT RollNo FROM deleted);
---		END;
---END;
+SELECT ItemId,Count(ItemId) AS TotalOrderAmount
+FROM ItemName
+GROUP BY ItemId
+HAVING Count(ItemId) > 2
+ORDER BY TotalOrderAmount DESC;
+-------------------------------Trigger---------------------------------
+CREATE TRIGGER UpdateDatabase
+ON Marks
+AFTER INSERT, UPDATE , DELETE
+AS
+BEGIN
+   UPDATE Marks
+   SET TotalMarks = Maths + English + Science
+   WHERE RollNo IN (SELECT RollNo FROM inserted);
+	IF EXISTS(SELECT * FROM deleted)
+		BEGIN
+			UPDATE Marks
+			SET TotalMarks = Maths + English + Science
+			WHERE RollNo IN (SELECT RollNo FROM deleted);
+		END;
+END;
 
---INSERT INTO Marks (RollNo, Maths, English, Science)
---VALUES (1, 65, 76, 87);
+INSERT INTO Marks (RollNo, Maths, English, Science)
+VALUES (1, 65, 76, 87);
 
---UPDATE Marks
---SET Maths = 90, English = 88, Science = 95
---WHERE RollNo = 1;
+UPDATE Marks
+SET Maths = 90, English = 88, Science = 95
+WHERE RollNo = 1;
 
---DELETE FROM Marks WHERE RollNo = 1;
+DELETE FROM Marks WHERE RollNo = 1;
 
---DROP TRIGGER dbo.UpdateTotalMarks;  ----For Delete Triggers
+DROP TRIGGER dbo.UpdateTotalMarks;  --For Delete Triggers
 
---Select * from marks
+Select * from marks
 
 
 --------------------------View ------------------------------------
---CREATE VIEW vw_AllItems
---AS
---SELECT i.ItemId ,i.ItemType, it.Name , Price , Warranty
---FROM Item i
---left join ItemName it on i.ItemId = it.ItemId
+CREATE VIEW vw_AllItems
+AS
+SELECT i.ItemId ,i.ItemType, it.Name , Price , Warranty
+FROM Item i
+left join ItemName it on i.ItemId = it.ItemId
 
 
---Select itemtype , name , Warranty from vw_AllItems 
+Select itemtype , name , Warranty from vw_AllItems 
 
