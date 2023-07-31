@@ -56,7 +56,7 @@ where Name= 'Lg' and  ItemId = 3 and price = 35000
 
 -- Delete 
 Delete from dbo.ItemName where Name = 'Dell' and Price = 56000 -- specific row
---Delete FROM dbo.ItemName -- Delete all data
+Delete FROM dbo.ItemName -- Delete all data
 
 -- Select top
 SELECT TOP 3 * FROM ItemName;
